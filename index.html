@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zähler-Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: black;
+      color: limegreen;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-size: 5rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="counter">42'000'000</div>
+
+  <script>
+    let count = 42000000;
+    const intervalSeconds = 10;
+    const counterDiv = document.getElementById("counter");
+
+    function formatNumber(num) {
+      return num.toLocaleString("de-CH"); // Schweizer Format mit Tausender-Apostroph
+    }
+
+    function updateCounter() {
+      count += 1;
+      counterDiv.textContent = formatNumber(count);
+    }
+
+    setInterval(updateCounter, intervalSeconds * 1000);
+  </script>
+</body>
+</html>

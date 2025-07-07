@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Zähler-Demo</title>
+  <title>Zähler</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,23 +19,30 @@
   </style>
 </head>
 <body>
-  <div id="counter">42'000'000</div>
+  <div id="counter">–</div>
 
   <script>
-    let count = 42000000;
-    const intervalSeconds = 10;
-    const counterDiv = document.getElementById("counter");
+    const startWert = 42000000;
+    const intervallSekunden = 10;
+
+    // Startzeitpunkt definieren (UTC!)
+    const startZeit = new Date("2024-01-01T00:00:00Z");
 
     function formatNumber(num) {
-      return num.toLocaleString("de-CH"); // Schweizer Format mit Tausender-Apostroph
+      return num.toLocaleString("de-CH");
     }
 
     function updateCounter() {
-      count += 1;
-      counterDiv.textContent = formatNumber(count);
+      const jetzt = new Date();
+      const vergangen = Math.floor((jetzt - startZeit) / 1000); // in Sekunden
+      const schritte = Math.floor(vergangen / intervallSekunden);
+      const aktuellerWert = startWert + schritte;
+      document.getElementById("counter").textContent = formatNumber(aktuellerWert);
     }
 
-    setInterval(updateCounter, intervalSeconds * 1000);
+    // sofort anzeigen und dann alle Sekunde aktualisieren
+    updateCounter();
+    setInterval(updateCounter, 1000);
   </script>
 </body>
 </html>
